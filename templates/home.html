@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+</head>
+<body>
+    <form action="/download" method="post">
+    URL: <input name="url" id="url" oninput="get_options()"> <br>
+    <p id="wait"> </p>
+    <div id="resdiv">
+        <!-- Selection of resolution here -->
+    </div>   
+    <button type="submit">Download</button>
+    </form>
+</body>
+<script>
+    if(url.value.trim()!==""){
+        get_options()
+    }
+    function get_options(){
+        if(url.value.trim()==""){
+            resdiv.innerHTML="";
+            return;
+        }
+        wait.innerHTML="PLEASE WAIT"
+        resdiv.innerHTML=""
+        $.post( "/get_quality",{url:url.value.trim()}, ).done(function(response){
+            result=JSON.parse(response);
+            console.log(result)
+            console.log(typeof result)
+            if(result.length){
+                html=`select resolution: 
+    <select name="res" id="res">`;
+                result.forEach(el => {
+                    if(el==0){
+
+                        html+=`<option value="mp4p">mp4</option>`;
+                    }
+                    else{
+                    html+=`<option value="${el}p">${el}p</option>`;
+                    }
+                });
+                html+=`</select> <br>`
+                resdiv.innerHTML=html;
+                
+                wait.innerHTML="";
+            }
+            else{
+            resdiv.innerHTML=""
+            wait.innerHTML="Sorry,Link was not found";
+            }            
+        });
+    }
+</script>
+</html>
