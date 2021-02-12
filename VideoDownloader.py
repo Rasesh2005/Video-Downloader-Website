@@ -2,9 +2,7 @@ import json
 from flask import Flask,request, render_template, send_file
 from youtube_dl import YoutubeDL
 import os
-from threading import Thread
-import time
-
+# from urllib.request import urlretrieve
 
 li=0
 qualityToLink={}
@@ -21,8 +19,8 @@ class FileCleaner:
     def run(self):
         global to_be_deleted
         for item in to_be_deleted:
-            itempath=os.path.join(BASE_DIR,item)
-            os.remove(itempath)
+            os.remove(item)
+            to_be_deleted.remove(item)
 
 
 cleaner=FileCleaner()
@@ -65,7 +63,8 @@ def download_video(link,res):
             #     f.write(json.dumps(url))
         download_link=qualityToLink[res]
         ydl.download([download_link])
-        return filename+f"{li}.mp4"
+        # return filename+f"{li}.mp4"
+        return download_link,filename+f"{li}.mp4"
         # except Exception as e:
             # print(e)
             # return None
@@ -78,7 +77,6 @@ def home():
 
 @app.route('/get_quality',methods=["POST"])
 def get_quality():
-    global qualityToLink
     if request.form.get("url").strip()!="":
         res=set()
         ydl_opts={}
@@ -108,11 +106,17 @@ def download():
     link=request.form.get("url")
     res=request.form.get("res")
     if filename:=download_video(link,res):
-        to_be_deleted.append(os.path.join(BASE_DIR,filename))
-        return send_file(os.path.join(BASE_DIR,filename),mimetype="video/mp4",as_attachment=True)
+        link,file=filename
+        path=os.path.join(BASE_DIR,file)
+        # print(link,file)
+        print("fetching url")
+        # data=base64.b64encode(requests.get(url=filename[0]).content)
+        to_be_deleted.append(path)
+        # return render_template("download.html",link=filename[0],filename=filename[1],data=str(data))
+        return send_file(path,mimetype="video/mp4",as_attachment=True)
     else:
         print(filename)
         return "Link Not Found"
 
 if __name__=='__main__':
-    app.run(port=80,debug=True)
+    app.run(debug=True)

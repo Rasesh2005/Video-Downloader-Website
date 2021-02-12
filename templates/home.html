@@ -4,20 +4,51 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Home</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <style>
+        #myProgress {
+        width: 100%;
+        background-color: grey;
+        }
+
+        #myBar {
+        width: 1%;
+        height: 30px;
+        background-color: green;
+        }
+        .invisible{
+            visibility: hidden;
+        }
+    </style>
 </head>
 <body>
-    <form action="/download" method="post">
-    URL: <input name="url" id="url" oninput="get_options()"> <br>
-    <p id="wait"> </p>
+    <form action="/download" method="post" id="download">
+    URL: <input name="url" id="url" oninput="get_options()" autofocus required> <br>
+    <div id="status"></div>
+    <p id="wait"></p>
     <div id="resdiv">
         <!-- Selection of resolution here -->
     </div>   
-    <button type="submit">Download</button>
+    <button type="submit" id="btn">Download</button>
     </form>
+    <div id="myProgress" class="">
+        <div id="myBar"></div>
+      </div>
+      <br>
+        <button onclick="move()">Click Me</button>
 </body>
 <script>
+    // btn.addEventListener('click',()=>{
+    //     status.innerHTML="<h1> Wait While We Fetch Your File</h1>"
+    //     obj={
+    //         res:res.value,
+    //         url:url.value
+    //     }
+    //     $.post( "/status",obj ).done(function(reponse){
+
+    //     });
+    // })
     if(url.value.trim()!==""){
         get_options()
     }
