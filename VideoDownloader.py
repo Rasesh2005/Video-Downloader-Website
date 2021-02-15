@@ -1,10 +1,8 @@
 import json
-from flask import Flask,request, render_template, send_file
+from flask import Flask,request, render_template
 from youtube_dl import YoutubeDL
 import os
-# from urllib.request import urlretrieve
 
-li=0
 qualityToLink={}
 url=None
 to_be_deleted=[]
@@ -34,14 +32,9 @@ def make_links(link):
     newDict={}
     with YoutubeDL(ydl_opts) as ydl:
         url=ydl.extract_info(link, download=False)
-        # print(url)
-        # with open("fb.json","w") as f:
-        #     f.write(json.dumps(url))
-        #     print(url)
-        #     print("File Written")
         for i in url["formats"]:
-            if i.get("height")!=None or i["ext"]!="mp4":
-                newDict[str(i.get('height') if i.get('height') else "mp4")+"p"]=i['url']
+            if i.get("height")!=None and i["ext"]=="mp4":
+                newDict[str(i.get('height'))+"p"]=i['url']
     return newDict
 
 
@@ -51,23 +44,10 @@ def download_video(link,res):
     s=url["title"][:15]
     filename="".join(x if x.isalnum() else '-' for x in s)
     if os.path.exists(os.path.join(BASE_DIR,filename)):
-        return filename+f"{li}.mp4"
-    li+=1
-    ydl_opts={"outtmpl":BASE_DIR+'/'+filename+f"{li}.mp4"}
-    with YoutubeDL(ydl_opts) as ydl:
-        # try:
-            # url=ydl.extract_info(link, download=False)
-
-            # print("url: ",url)
-            # with open("url.json","w") as f:
-            #     f.write(json.dumps(url))
-        download_link=qualityToLink[res]
-        ydl.download([download_link])
-        # return filename+f"{li}.mp4"
-        return download_link,filename+f"{li}.mp4"
-        # except Exception as e:
-            # print(e)
-            # return None
+        return filename+".mp4"
+    
+    download_link=qualityToLink[res]
+    return download_link,filename+".mp4"
 
 @app.route('/')
 def home():
@@ -85,10 +65,9 @@ def get_quality():
                 newDict={}
                 url=ydl.extract_info(str(request.form.get("url")), download=False)
                 for i in url["formats"]:
-                    if i.get("height")!=None or i["ext"]!="mp4":
-                        newDict[str(i.get('height') if i.get('height') else "mp4")+"p"]=i['url']
+                    if i.get("height") and i["ext"]=="mp4":
+                        newDict[str(i.get('height'))+"p"]=i['url']
                         res.add(i.get('height') if i.get('height') else None) 
-                qualityToLink=newDict
                 if None in res:
                     res.remove(None)
                     res.add(0)
@@ -107,13 +86,15 @@ def download():
     res=request.form.get("res")
     if filename:=download_video(link,res):
         link,file=filename
+        print(link)
         path=os.path.join(BASE_DIR,file)
         # print(link,file)
         print("fetching url")
         # data=base64.b64encode(requests.get(url=filename[0]).content)
-        to_be_deleted.append(path)
-        # return render_template("download.html",link=filename[0],filename=filename[1],data=str(data))
-        return send_file(path,mimetype="video/mp4",as_attachment=True)
+        # to_be_deleted.append(path)
+        title=filename[1]
+        title.replace(' ','%20')
+        return render_template("download.html",title=title,link=link,filename=file)
     else:
         print(filename)
         return "Link Not Found"
