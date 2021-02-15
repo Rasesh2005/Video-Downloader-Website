@@ -1,3 +1,5 @@
+from flask.templating import render_template_string
+from PlaylistDownloader import get_playlist
 import json
 from flask import Flask,request, render_template
 from youtube_dl import YoutubeDL
@@ -7,23 +9,7 @@ qualityToLink={}
 url=None
 to_be_deleted=[]
 app=Flask(__name__,static_folder="media")
-BASE_DIR=os.path.join(os.getcwd(),"media")
 
-
-
-class FileCleaner:
-    def __init__(self) -> None:
-        pass
-    def run(self):
-        global to_be_deleted
-        for item in to_be_deleted:
-            os.remove(item)
-            to_be_deleted.remove(item)
-
-
-cleaner=FileCleaner()
-for i in os.listdir(BASE_DIR):
-    os.remove(os.path.join(BASE_DIR,i))
 
 
 def make_links(link):
@@ -43,8 +29,6 @@ def download_video(link,res):
     qualityToLink=make_links(link)
     s=url["title"][:15]
     filename="".join(x if x.isalnum() else '-' for x in s)
-    if os.path.exists(os.path.join(BASE_DIR,filename)):
-        return filename+".mp4"
     
     download_link=qualityToLink[res]
     return download_link,filename+".mp4"
@@ -53,6 +37,9 @@ def download_video(link,res):
 def home():
     return render_template("home.html")
 
+@app.route('/playlist')
+def playlist():
+    return render_template("playlist.html")
 
 
 @app.route('/get_quality',methods=["POST"])
@@ -78,20 +65,16 @@ def get_quality():
 
 
 
+
 @app.route('/download',methods=["POST"])
 def download():
     global to_be_deleted
-    cleaner.run()
     link=request.form.get("url")
     res=request.form.get("res")
     if filename:=download_video(link,res):
         link,file=filename
         print(link)
-        path=os.path.join(BASE_DIR,file)
-        # print(link,file)
         print("fetching url")
-        # data=base64.b64encode(requests.get(url=filename[0]).content)
-        # to_be_deleted.append(path)
         title=filename[1]
         title.replace(' ','%20')
         return render_template("download.html",title=title,link=link,filename=file)
@@ -99,5 +82,13 @@ def download():
         print(filename)
         return "Link Not Found"
 
+@app.route("/download_playlist",methods=["POST"])
+def download_playlist():
+    print("WELCOME TO PLAYLIST DOWNLOADER")
+    link=request.form.get("link")
+    print(link)
+    print(type(link))
+    zipped=get_playlist(link)
+    return render_template("download_playlist.html",zipped_list=zipped)
 if __name__=='__main__':
     app.run(debug=True)
