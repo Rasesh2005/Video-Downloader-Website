@@ -1,16 +1,22 @@
-from flask.templating import render_template_string
-from PlaylistDownloader import get_playlist
 import json
 from flask import Flask,request, render_template
 from youtube_dl import YoutubeDL
-import os
 
 qualityToLink={}
 url=None
 to_be_deleted=[]
 app=Flask(__name__,static_folder="media")
 
-
+def get_playlist(link):
+    ydl_conf={}
+    with YoutubeDL(ydl_conf) as ydl:
+        url=ydl.extract_info(link, download=False)
+        download_links=[]
+        download_titles=[]
+        for entry in url["entries"]:
+            download_titles.append(entry["title"])
+            download_links.append(entry["formats"][-1]["url"])
+        return zip(download_titles,download_links)
 
 def make_links(link):
     global url
