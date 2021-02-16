@@ -26,7 +26,7 @@ def make_links(link):
         url=ydl.extract_info(link, download=False)
         for i in url.get("formats"):
             if i.get("height")!=None and i.get("ext")=="mp4":
-                newDict[str(i.get('height'))+"p"]=i.get('url'])
+                newDict[str(i.get('height'))+"p"]=i.get('url')
     return newDict
 
 
