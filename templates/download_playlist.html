@@ -4,7 +4,7 @@
 <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 </head>
-<button onclick="downloadAll()">Download All</button>
+<!-- <button onclick="downloadAll()">Download All</button> -->
 {% for title, link in zipped_list %}
 <div class="container">
 
@@ -15,15 +15,15 @@
 {%endfor%}
 
 <script>
-    function downloadAll(){
-        alert("Popups Should be enabled for this site, it will open tabs and close it instantly...")
-        items=document.getElementsByClassName("dl")
-        console.log(items)
-        for(let i=0;i<items.length;i++){
-            // console.log(items[i].href)
-            window.open(items[i].href);
-        }
-    }
+    // function downloadAll(){
+    //     alert("Popups Should be enabled for this site, it will open tabs and close it instantly...")
+    //     items=document.getElementsByClassName("dl")
+    //     console.log(items)
+    //     for(let i=0;i<items.length;i++){
+    //         // console.log(items[i].href)
+    //         window.open(items[i].href,"_self");
+    //     }
+    // }
 </script>
 </body>
 </html>

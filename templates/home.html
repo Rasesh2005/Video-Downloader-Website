@@ -23,15 +23,13 @@
     </style>
 </head>
 <body>
-    <form action="/download" method="post" id="download">
     URL: <input name="url" id="url" oninput="get_options()" autofocus required> <br>
     <div id="status"></div>
     <p id="wait"></p>
     <div id="resdiv">
         <!-- Selection of resolution here -->
     </div>   
-    <button type="submit" id="btn">Download</button>
-    </form>
+    <button id="btn"><a href="" id="link">Download</a></button>
     
 </body>
 <script>
@@ -51,26 +49,27 @@
             console.log(typeof result)
             if(result.length){
                 html=`select resolution: 
-    <select name="res" id="res">`;
-                result.forEach(el => {
-                    if(el==0){
-
-                        html+=`<option value="mp4p">mp4</option>`;
-                    }
-                    else{
-                    html+=`<option value="${el}p">${el}p</option>`;
-                    }
+    <select name="res" oninput="get_link()" id="res">`;
+                result.forEach((el,id) => {
+                    html+=`<option id="op${id}" value="${el}p">${el}p</option>`;
                 });
                 html+=`</select> <br>`
                 resdiv.innerHTML=html;
                 
                 wait.innerHTML="";
+                get_link()
             }
             else{
             resdiv.innerHTML=""
             wait.innerHTML="Sorry,Link was not found";
             }            
         });
+    }
+    function get_link(){
+        $.post("/get_link",{res:res.value,url:url.value},).done(function(response){
+            link.href=response
+            console.log("href="+response)
+        })
     }
 </script>
 </html>

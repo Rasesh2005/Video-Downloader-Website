@@ -4,9 +4,8 @@
 <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 </head>
-<!-- <p><b>Note:</b> The download attribute is not supported in IE or Edge (prior version 18), or in Safari (prior version 10.1).</p> -->
 <script>
-	window.open("{{link|safe}}&title={{title|safe}}");
+	window.open("{{link|safe}}&title={{title|safe}}","_self");
 	setTimeout(()=>{
 		window.location.href='/';
 	},1000)

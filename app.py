@@ -3,9 +3,6 @@ from flask import Flask,request, render_template
 from youtube_dl import YoutubeDL
 import youtube_dl
 
-qualityToLink={}
-url=None
-to_be_deleted=[]
 app=Flask(__name__)
 
 def get_playlist(link):
@@ -70,6 +67,12 @@ def get_quality():
         return json.dumps(sorted(list(res),reverse=True))
     return "No parameters passed"
 
+@app.route('/get_link',methods=["POST"])
+def get_link():
+    link=request.form.get("url")
+    res=request.form.get("res")
+    download_link,_=download_video(link,res)
+    return str(download_link+"&title=Video")
 
 
 
