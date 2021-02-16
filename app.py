@@ -71,8 +71,10 @@ def get_quality():
 def get_link():
     link=request.form.get("url")
     res=request.form.get("res")
-    download_link,_=download_video(link,res)
-    return str(download_link+"&title=Video")
+    download_link,filename=download_video(link,res)
+    title=filename
+    title.replace(' ','%20')
+    return json.dumps([str(download_link+"&title="+title),filename])
 
 
 

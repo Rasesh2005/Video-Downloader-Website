@@ -29,8 +29,9 @@
     <div id="resdiv">
         <!-- Selection of resolution here -->
     </div>   
-    <button id="btn"><a href="" id="link">Download</a></button>
-    
+    <button id="btn" style="visibility:visible"><a href="" download="" id="link">Download</a></button>
+<br>
+    NOTE: Download 720p resolution for youtube videos for download convenience...
 </body>
 <script>
     if(url.value.trim()!==""){
@@ -66,10 +67,13 @@
         });
     }
     function get_link(){
+        document.getElementById("btn").style.visibility = "hidden"; 
         $.post("/get_link",{res:res.value,url:url.value},).done(function(response){
-            link.href=response
+            link.href=JSON.parse(response)[0]
+            link.download=JSON.parse(response)[1]
             console.log("href="+response)
         })
+        document.getElementById("btn").style.visibility = "visible";
     }
 </script>
 </html>
