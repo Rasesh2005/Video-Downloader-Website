@@ -1,6 +1,7 @@
 import json
 from flask import Flask,request, render_template
 from youtube_dl import YoutubeDL
+import youtube_dl
 
 qualityToLink={}
 url=None
@@ -76,6 +77,10 @@ def get_quality():
 def download():
     global to_be_deleted
     link=request.form.get("url")
+    
+    # fix for youtube in-app links
+    link.replace("youtu.be/","www.youtube.com/watch?v=")
+
     res=request.form.get("res")
     if filename:=download_video(link,res):
         link,file=filename
