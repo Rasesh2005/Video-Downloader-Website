@@ -6,7 +6,7 @@
 </head>
 <!-- <p><b>Note:</b> The download attribute is not supported in IE or Edge (prior version 18), or in Safari (prior version 10.1).</p> -->
 <script>
-	window.location.href="{{link|safe}}&title={{title|safe}}";
+	window.open("{{link|safe}}&title={{title|safe}}");
 	setTimeout(()=>{
 		window.location.href='/';
 	},1000)
