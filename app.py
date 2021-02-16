@@ -5,7 +5,7 @@ from youtube_dl import YoutubeDL
 qualityToLink={}
 url=None
 to_be_deleted=[]
-app=Flask(__name__,static_folder="media")
+app=Flask(__name__)
 
 def get_playlist(link):
     ydl_conf={}
@@ -13,9 +13,9 @@ def get_playlist(link):
         url=ydl.extract_info(link, download=False)
         download_links=[]
         download_titles=[]
-        for entry in url["entries"]:
-            download_titles.append(entry["title"])
-            download_links.append(entry["formats"][-1]["url"])
+        for entry in url.get("entries"):
+            download_titles.append(entry.get("title"))
+            download_links.append(entry.get("formats")[-1]["url"])
         return zip(download_titles,download_links)
 
 def make_links(link):
@@ -24,9 +24,9 @@ def make_links(link):
     newDict={}
     with YoutubeDL(ydl_opts) as ydl:
         url=ydl.extract_info(link, download=False)
-        for i in url["formats"]:
-            if i.get("height")!=None and i["ext"]=="mp4":
-                newDict[str(i.get('height'))+"p"]=i['url']
+        for i in url.get("formats"):
+            if i.get("height")!=None and i.get("ext")=="mp4":
+                newDict[str(i.get('height'))+"p"]=i.get('url'])
     return newDict
 
 
@@ -97,4 +97,4 @@ def download_playlist():
     zipped=get_playlist(link)
     return render_template("download_playlist.html",zipped_list=zipped)
 if __name__=='__main__':
-    app.run(debug=True)
+    app.run(threaded=True)
