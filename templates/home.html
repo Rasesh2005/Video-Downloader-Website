@@ -25,7 +25,7 @@
             visibility: hidden;
         }
     </style>
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
 
 </head>
 
@@ -36,7 +36,7 @@
         <!-- hero-section -->
         <section class="hero-section">
             <h2>VidGet</h2>
-            <img src="./assets/img/undraw_video_files_fu10.svg" alt="illustraion" width="300px">
+            <img src="{{ url_for('static', filename='img/undraw_video_files_fu10.svg') }}" alt="illustration" width="300px">
             <p>Your one stop solution for all video downloads!</p>
         </section>
 
@@ -65,7 +65,7 @@
                 <div class="loading-div">
                     <h3>Status Box</h3>
                     <div class="status-div">
-                        <div id="status">Not Started!</div>
+                        <!-- <div id="status">Not Started!</div> -->
                         <p id="wait"></p>
                     </div>
                     <div id="resdiv">
