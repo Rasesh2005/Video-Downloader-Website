@@ -26,10 +26,26 @@
         }
     </style>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
+    <!-- <link rel="stylesheet" href="../static/css/style.css"> -->
+
+    <style>
+        #home-link {
+            color: rgb(0, 255, 0);
+        }
+    </style>
 
 </head>
 
 <body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a id="home-link" href="/">Home</a></li>
+                <li><a id="playlist-link" href="/playlist">Get Playlists</a></li>
+            </ul>
+        </nav>
+    </header>
 
     <main>
 
@@ -37,7 +53,8 @@
         <section class="hero-section">
             <h2>VidGet</h2>
             <img src="{{ url_for('static', filename='img/undraw_video_files_fu10.svg') }}" alt="illustration" width="300px">
-            <p>Your one stop solution for all video downloads!</p>
+            <!-- <img src="../static/img/undraw_video_files_fu10.svg" alt="illustration" width="300px"> -->
+            <p><b>Download Videos :</b> Your one stop solution for all video downloads!</p>
         </section>
 
         <!-- main content -->
