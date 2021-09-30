@@ -1,190 +1,190 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap");
 
 :root {
-  --font-primary: "Montserrat", sans-serif;
-  --color-purple-0: hsl(243, 100%, 90%);
-  --color-purple-1: hsl(243, 100%, 75%);
-  --color-purple-2: hsl(243, 100%, 69%);
-  --color-purple-3: hsl(243, 100%, 65%);
-  --color-purple-4: hsl(243, 100%, 60%);
+	--font-primary: "Montserrat", sans-serif;
+	--color-purple-0: hsl(243, 100%, 90%);
+	--color-purple-1: hsl(243, 100%, 75%);
+	--color-purple-2: hsl(243, 100%, 69%);
+	--color-purple-3: hsl(243, 100%, 65%);
+	--color-purple-4: hsl(243, 100%, 60%);
 }
 
 *,
 *:before,
 *:after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 a {
-  text-decoration: none;
+	text-decoration: none;
 }
 
 ol,
 ul {
-  list-style: none;
+	list-style: none;
 }
 
 body {
-  background-color: var(--color-purple-3);
-  color: #fff;
-  font-family: sans-serif;
+	background-color: var(--color-purple-3);
+	color: #fff;
+	font-family: sans-serif;
 }
 
 main {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  max-width: 1200px;
-  margin: 0 auto;
-  background-color: var(--color-purple-2);
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	max-width: 1200px;
+	margin: 0 auto;
+	background-color: var(--color-purple-2);
 }
 
 /* navbar */
 
 nav {
-  background-color: var(--color-purple-2);
-  max-width: 1200px;
-  margin: 0 auto;
+	background-color: var(--color-purple-2);
+	max-width: 1200px;
+	margin: 0 auto;
 }
 
 nav ul {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  padding: 1rem;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	padding: 1rem;
 }
 
 nav ul li a {
-  color: #fff;
-  font-size: 1.25rem;
+	color: rgb(255, 255, 255);
+	font-size: 1.25rem;
 }
 
 nav ul li a:hover {
-  color: yellow !important;
+	color: yellow !important;
 }
 
 /* hero section */
 
 .hero-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background-color: var(--color-purple-1);
-  padding: 0.5rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	background-color: var(--color-purple-1);
+	padding: 0.5rem;
 }
 .hero-section h2 {
-  font-family: var(--font-primary);
-  font-size: 3rem;
-  letter-spacing: 10px;
-  font-weight: 700;
-  padding: 0.5rem;
+	font-family: var(--font-primary);
+	font-size: 3rem;
+	letter-spacing: 10px;
+	font-weight: 700;
+	padding: 0.5rem;
 }
 .hero-section img {
-  height: auto;
-  width: 20rem;
-  padding: 0.5rem;
+	height: auto;
+	width: 20rem;
+	padding: 0.5rem;
 }
 .hero-section p {
-  font-size: 1.25rem;
-  padding: 0.5rem;
+	font-size: 1.25rem;
+	padding: 0.5rem;
 }
 
 .hero-section p b {
-  text-transform: uppercase;
+	text-transform: uppercase;
 }
 /* main content */
 
 .main-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: 0.5rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	padding: 0.5rem;
 }
 
 form {
-  display: flex;
+	display: flex;
 }
 
 .search-box {
-  padding: 0.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	padding: 0.5rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .search-box input {
-  border: 2px solid var(--color-purple-4);
-  border-radius: 10px;
-  padding: 0.5rem;
-  margin: 0.5rem;
-  height: 3rem;
-  width: 20rem;
-  max-width: 70vw;
+	border: 2px solid var(--color-purple-4);
+	border-radius: 11px;
+	padding: 0.5rem;
+	margin: 0.5rem;
+	height: 3rem;
+	width: 20rem;
+	max-width: 70vw;
 }
 .search-box input::placeholder {
-  font-family: sans-serif;
+	font-family: sans-serif;
 }
 .search-box button {
-  padding: 0.25rem;
-  border-radius: 10px;
-  background-color: lightgreen;
-  border: 2px solid var(--color-purple-4);
-  margin: 0.5rem;
-  height: 3rem;
-  width: 3rem;
+	padding: 0.26rem;
+	border-radius: 10px;
+	background-color: lightgreen;
+	border: 2px solid var(--color-purple-4);
+	margin: 0.5rem;
+	height: 3rem;
+	width: 3rem;
 }
 .search-box button svg {
-  color: var(--color-purple-4);
+	color: var(--color-purple-4);
 }
 
 /* loading div */
 
 .loading-div {
-  background-color: var(--color-purple-1);
-  display: flex;
-  flex-direction: column;
-  padding: 0.5rem;
-  border-radius: 10px;
-  margin: 1rem;
-  min-height: fit-content;
-  min-width: fit-content;
+	background-color: var(--color-purple-1);
+	display: flex;
+	flex-direction: column;
+	padding: 0.6rem;
+	border-radius: 10px;
+	margin: 1rem;
+	min-height: fit-content;
+	min-width: fit-content;
 }
 .loading-div h3 {
-  font-family: var(--font-primary);
-  text-align: center;
+	font-family: var(--font-primary);
+	text-align: center;
 }
 .loading-div .status-div {
-  display: flex;
-  padding: 1rem;
-  padding-bottom: 0.5rem;
+	display: flex;
+	padding: 1rem;
+	padding-bottom: 0.5rem;
 }
 
 /* info div */
 
 .info-div {
-  background-color: var(--color-purple-1);
-  padding: 1rem 2rem;
-  border-radius: 10px;
-  max-width: 90%;
+	background-color: var(--color-purple-1);
+	padding: 1rem 2rem;
+	border-radius: 10px;
+	max-width: 90%;
 }
 .info-div p {
-  font-size: 1rem;
+	font-size: 1rem;
 }
 
 .content-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 @media screen and (max-width: 800px) {
-  .content-box {
-    display: block;
-  }
-  .hero-section img {
-    width: 16rem;
-  }
+	.content-box {
+		display: block;
+	}
+	.hero-section img {
+		width: 15rem;
+	}
 }
