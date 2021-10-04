@@ -86,4 +86,4 @@ Contributions are what make the open source community such an amazing place to l
 <!-- CONTACT -->
 ## Contact
 
-Project Link: [https://github.com/Rasesh2005/Video-Downloader-Website.git](hhttps://github.com/Rasesh2005/Video-Downloader-Website.git)
+Project Link: [CLICK HERE](https://github.com/Rasesh2005/Video-Downloader-Website)
