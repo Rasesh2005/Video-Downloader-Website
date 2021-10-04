@@ -29,35 +29,38 @@ VidGet is a great website that allowws you to download YouTube Videos very easil
 * HTML
 
 
-
-<!-- GETTING STARTED -->
 ## Getting Started
 
 Follow these steps to quickly setup your VidGet website.
-  
-### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-  
- * flask
-  
-  ```sh
-  pip install flask
+1. Fork the repo 
+    This fork creates a personal copy of the original repo where you can make changes
+    <image>
+2. Cloning project repository
   ```
- * youtube_dl
-  
-  ```sh
-  pip install youtube_dl
-  ```  
-<!-- USAGE EXAMPLES -->
+  $ git clone <Project A>
+  ```
+3. Enter to project directory
+  ```
+  $ cd <Project A>
+  ```
+4. If not created, creating virtualenv and activating it
+  ```
+  $ python3 -m venv my_venv 
+  $ source ./my_venv/bin/activate 
+  ```
+5. Installing dependencies
+  ```
+  (my_venv)$ pip3 install -r ./requirements.txt
+  ```
+6. Deactivating virtualenv
+  ```
+  (my_venv)$ deactivate 
+  ```
+
 ## Usage
 
- - After installing the prequisites download the source code
-  
-  ```sh
-  git clone https://github.com/Rasesh2005/Video-Downloader-Website.git
-  ``` 
-- Open the file and run the app.py file
+Run the app.py file
   
   <a href="https://github.com/GeorgeET15/Video-Downloader-Website">
     <img src="images/running.PNG" alt="Home" width="500" height="100">
