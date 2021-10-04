@@ -56,17 +56,11 @@ Follow these steps to quickly setup your VidGet website.
 6. Deactivating virtualenv
   ```
   (my_venv)$ deactivate 
-  
+  ```
 
-<!-- USAGE EXAMPLES -->
 ## Usage
 
- - After installing the prequisites download the source code
-  
-  ```sh
-  git clone https://github.com/Rasesh2005/Video-Downloader-Website.git
-  ``` 
-- Open the file and run the app.py file
+Run the app.py file
   
   <a href="https://github.com/GeorgeET15/Video-Downloader-Website">
     <img src="images/running.PNG" alt="Home" width="500" height="100">
