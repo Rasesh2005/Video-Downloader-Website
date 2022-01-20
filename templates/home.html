@@ -1,150 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<title>Home Page</title>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+			integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+			crossorigin="anonymous"
+		></script>
+		<style>
+			#myProgress {
+				width: 100%;
+				background-color: grey;
+			}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
-        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
-        crossorigin="anonymous"></script>
-    <style>
-        #myProgress {
-            width: 100%;
-            background-color: grey;
-        }
+			#myBar {
+				width: 1%;
+				height: 31px;
+				background-color: rgb(5, 172, 5);
+			}
 
-        #myBar {
-            width: 1%;
-            height: 30px;
-            background-color: green;
-        }
+			.invisible {
+				visibility: hidden;
+			}
+		</style>
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="{{ url_for('static', filename='css/style.css') }}"
+		/>
+		<!-- <link rel="stylesheet" href="../static/css/style.css"> -->
 
-        .invisible {
-            visibility: hidden;
-        }
-    </style>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
-    <!-- <link rel="stylesheet" href="../static/css/style.css"> -->
+		<style>
+			#home-link {
+				color: rgb(0, 233, 0);
+			}
+		</style>
+	</head>
 
-    <style>
-        #home-link {
-            color: rgb(0, 255, 0);
-        }
-    </style>
+	<body>
+		<header>
+			<nav>
+				<ul>
+					<li><a id="home-link" href="/">Home</a></li>
+					<li>
+						<a id="playlist-link" href="/playlist">Get Playlists</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
 
-</head>
+		<main>
+			<!-- hero-section -->
+			<section class="hero-section">
+				<h2>VidGet</h2>
+				<img
+					src="{{ url_for('static', filename='img/undraw_video_files_fu10.svg') }}"
+					alt="illustration"
+					width="300px"
+				/>
+				<!-- <img src="../static/img/undraw_video_files_fu10.svg" alt="illustration" width="300px"> -->
+				<p>
+					<b>Download Videos :</b> Your one stop solution for all
+					video downloads!
+				</p>
+			</section>
 
-<body>
+			<!-- main content -->
+			<section class="main-content">
+				<div class="content-box">
+					<!-- search box -->
+					<div class="search-box">
+						<input
+							name="url"
+							id="url"
+							oninput="get_options()"
+							autofocus
+							required
+							placeholder="Type your url here..."
+						/>
+						<button id="btn" style="visibility: visible">
+							<a href="" download="" id="link">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="h-6 w-6"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									style="width: 20px"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+									/>
+								</svg>
+							</a>
+						</button>
+					</div>
 
-    <header>
-        <nav>
-            <ul>
-                <li><a id="home-link" href="/">Home</a></li>
-                <li><a id="playlist-link" href="/playlist">Get Playlists</a></li>
-            </ul>
-        </nav>
-    </header>
+					<!-- loading div -->
+					<div class="loading-div">
+						<h3>Status Box</h3>
+						<div class="status-div">
+							<!-- <div id="status">Not Started!</div> -->
+							<p id="wait"></p>
+						</div>
+						<div id="resdiv">
+							<!-- Selection of resolution here -->
+						</div>
+					</div>
+				</div>
 
-    <main>
-
-        <!-- hero-section -->
-        <section class="hero-section">
-            <h2>VidGet</h2>
-            <img src="{{ url_for('static', filename='img/undraw_video_files_fu10.svg') }}" alt="illustration" width="300px">
-            <!-- <img src="../static/img/undraw_video_files_fu10.svg" alt="illustration" width="300px"> -->
-            <p><b>Download Videos :</b> Your one stop solution for all video downloads!</p>
-        </section>
-
-        <!-- main content -->
-        <section class="main-content">
-
-            <div class="content-box">
-
-                <!-- search box -->
-                <div class="search-box">
-                    <input name="url" id="url" oninput="get_options()" autofocus required
-                        placeholder="Type your url here...">
-                    <button id="btn" style="visibility:visible">
-                        <a href="" download="" id="link">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor" style="width: 20px;">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                            </svg>
-                        </a>
-                    </button>
-
-                </div>
-
-                <!-- loading div -->
-                <div class="loading-div">
-                    <h3>Status Box</h3>
-                    <div class="status-div">
-                        <!-- <div id="status">Not Started!</div> -->
-                        <p id="wait"></p>
-                    </div>
-                    <div id="resdiv">
-                        <!-- Selection of resolution here -->
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- info div -->
-            <div class="info-div">
-                <p>
-                    NOTE: Download 720p resolution for youtube videos for download convenience...
-                </p>
-            </div>
-        </section>
-
-    </main>
-
-</body>
-<script>
-    if (url.value.trim() !== "") {
-        get_options()
-    }
-    function get_options() {
-        if (url.value.trim() == "") {
-            resdiv.innerHTML = "";
-            return;
-        }
-        wait.innerHTML = "PLEASE WAIT"
-        resdiv.innerHTML = ""
-        $.post("/get_quality", { url: url.value.trim() },).done(function (response) {
-            result = JSON.parse(response);
-            console.log(result)
-            console.log(typeof result)
-            if (result.length) {
-                html = `select resolution: 
+				<!-- info div -->
+				<div class="info-div">
+					<p>
+						NOTE: Download 720p resolution for youtube videos for
+						download convenience.....
+					</p>
+				</div>
+			</section>
+		</main>
+	</body>
+	<script>
+		if (url.value.trim() !== "") {
+			get_options();
+		}
+		function get_options() {
+			if (url.value.trim() == "") {
+				resdiv.innerHTML = "";
+				return;
+			}
+			wait.innerHTML = "PLEASE WAIT";
+			resdiv.innerHTML = "";
+			$.post("/get_quality", { url: url.value.trim() }).done(function (
+				response
+			) {
+				result = JSON.parse(response);
+				console.log(result);
+				console.log(typeof result);
+				if (result.length) {
+					html = `select resolution: 
     <select name="res" oninput="get_link()" id="res">`;
-                result.forEach((el, id) => {
-                    html += `<option id="op${id}" value="${el}p">${el}p</option>`;
-                });
-                html += `</select> <br>`
-                resdiv.innerHTML = html;
+					result.forEach((el, id) => {
+						html += `<option id="op${id}" value="${el}p">${el}p</option>`;
+					});
+					html += `</select> <br>`;
+					resdiv.innerHTML = html;
 
-                wait.innerHTML = "";
-                get_link()
-            }
-            else {
-                resdiv.innerHTML = ""
-                wait.innerHTML = "Sorry,Link was not found";
-            }
-        });
-    }
-    function get_link() {
-        document.getElementById("btn").style.visibility = "hidden";
-        $.post("/get_link", { res: res.value, url: url.value },).done(function (response) {
-            link.href = JSON.parse(response)[0]
-            link.download = JSON.parse(response)[1]
-            console.log("href=" + response)
-        })
-        document.getElementById("btn").style.visibility = "visible";
-    }
-</script>
-
+					wait.innerHTML = "";
+					get_link();
+				} else {
+					resdiv.innerHTML = "";
+					wait.innerHTML = "Sorry,Link was not found";
+				}
+			});
+		}
+		function get_link() {
+			document.getElementById("btn").style.visibility = "hidden";
+			$.post("/get_link", { res: res.value, url: url.value }).done(
+				function (response) {
+					link.href = JSON.parse(response)[0];
+					link.download = JSON.parse(response)[1];
+					console.log("href=" + response);
+				}
+			);
+			document.getElementById("btn").style.visibility = "visible";
+		}
+	</script>
 </html>

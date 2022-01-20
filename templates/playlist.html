@@ -1,92 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Home</title>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+			integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+			crossorigin="anonymous"
+		></script>
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="{{ url_for('static', filename='css/style.css') }}"
+		/>
+		<!-- <link rel="stylesheet" href="../static/css/style.css"> -->
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
-        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
-        crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
-    <!-- <link rel="stylesheet" href="../static/css/style.css"> -->
+		<style>
+			#playlist-link {
+				color: rgb(0, 255, 0);
+			}
+		</style>
+	</head>
 
-    <style>
-        #playlist-link {
-            color: rgb(0, 255, 0);
-        }
-    </style>
-    
-</head>
+	<body>
+		<header>
+			<nav>
+				<ul>
+					<li><a id="home-link" href="/">Home</a></li>
+					<li>
+						<a id="playlist-link" href="/playlist">Get Playlists</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
 
-<body>
+		<main>
+			<!-- hero-section -->
+			<section class="hero-section">
+				<h2>VidGet</h2>
+				<img
+					src="{{ url_for('static', filename='img/undraw_video_files_fu10.svg') }}"
+					alt="illustration"
+					width="300px"
+				/>
+				<!-- <img src="../static/img/undraw_video_files_fu10.svg" alt="illustration" width="300px"> -->
+				<p>
+					<b>Download Playlist :</b> Your one stop solution for all
+					video downloads!
+				</p>
+			</section>
 
-    <header>
-        <nav>
-            <ul>
-                <li><a id="home-link" href="/">Home</a></li>
-                <li><a id="playlist-link" href="/playlist">Get Playlists</a></li>
-            </ul>
-        </nav>
-    </header>
+			<!-- main content -->
+			<section class="main-content">
+				<div class="content-box">
+					<!-- search box -->
+					<div class="search-box">
+						<form
+							action="/download_playlist"
+							method="post"
+							id="download"
+						>
+							<input
+								oninput="get_options()"
+								name="link"
+								id="link"
+								autofocus
+								required
+								placeholder="Type your url here..."
+							/>
+							<button type="submit" id="btn">
+								<a href="" download="" id="link">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										class="h-6 w-6"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+										style="width: 20px"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+										/>
+									</svg>
+								</a>
+							</button>
+						</form>
+					</div>
 
-    <main>
+					<!-- loading div -->
+					<div class="loading-div">
+						<h3>Status Box</h3>
+						<div class="status-div">
+							<!-- <div id="status">Not Started!</div> -->
+							<p id="wait"></p>
+						</div>
+						<div id="resdiv">
+							<!-- Selection of resolution here -->
+						</div>
+					</div>
+				</div>
 
-        <!-- hero-section -->
-        <section class="hero-section">
-            <h2>VidGet</h2>
-            <img src="{{ url_for('static', filename='img/undraw_video_files_fu10.svg') }}" alt="illustration" width="300px">
-            <!-- <img src="../static/img/undraw_video_files_fu10.svg" alt="illustration" width="300px"> -->
-            <p><b>Download Playlist :</b> Your one stop solution for all video downloads!</p>
-        </section>
-
-        <!-- main content -->
-        <section class="main-content">
-
-            <div class="content-box">
-
-                <!-- search box -->
-                <div class="search-box">
-                    <form action="/download_playlist" method="post" id="download">
-                        <input oninput="get_options()" name="link" id="link" autofocus required
-                            placeholder="Type your url here...">
-                        <button type="submit" id="btn">
-                            <a href="" download="" id="link">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor" style="width: 20px;">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                                </svg>
-                            </a>
-                        </button>
-                    </form>
-                </div>
-
-                <!-- loading div -->
-                <div class="loading-div">
-                    <h3>Status Box</h3>
-                    <div class="status-div">
-                        <!-- <div id="status">Not Started!</div> -->
-                        <p id="wait"></p>
-                    </div>
-                    <div id="resdiv">
-                        <!-- Selection of resolution here -->
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- info div -->
-            <div class="info-div">
-                <p>
-                    NOTE: Download 720p resolution for youtube videos for download convenience...
-                </p>
-            </div>
-        </section>
-
-    </main>
-
-</body>
-
+				<!-- info div -->
+				<div class="info-div">
+					<p>
+						NOTE: Download 720p resolution for youtube videos for
+						download convenience......
+					</p>
+				</div>
+			</section>
+		</main>
+	</body>
 </html>
